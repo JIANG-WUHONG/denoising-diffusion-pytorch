@@ -11,14 +11,14 @@ model = Unet(
 
 diffusion = GaussianDiffusion(
     model,
-    image_size = 512,
+    image_size = 1024,
     timesteps = 1000,
     sampling_timesteps = 250
 )
 
 trainer = Trainer(
     diffusion,
-    r"D:\\path\\to\\mammo_images",
+    r"data\\mass\\train",
     train_batch_size = 8,
     train_lr = 8e-5,
     train_num_steps = 200000,
