@@ -19,10 +19,10 @@ diffusion = GaussianDiffusion(
 trainer = Trainer(
     diffusion,
     r"data\\mass\\train",
-    train_batch_size = 8,
+    train_batch_size = 1,
     train_lr = 8e-5,
     train_num_steps = 200000,
-    gradient_accumulate_every = 2,
+    gradient_accumulate_every = 16,
     ema_decay = 0.995,
     amp = True,
     augment_horizontal_flip = False,
