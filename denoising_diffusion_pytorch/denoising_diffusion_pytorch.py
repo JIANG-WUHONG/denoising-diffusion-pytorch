@@ -78,6 +78,11 @@ def convert_image_to_fn(img_type, image):
         return image.convert(img_type)
     return image
 
+def normalize_16bit_tensor(tensor):
+    if tensor.dtype in (torch.int16, torch.uint16):
+        return tensor.float() / 65535.0
+    return tensor
+
 # normalization functions
 
 def normalize_to_neg_one_to_one(img):
@@ -863,7 +868,8 @@ class Dataset(Dataset):
             T.Resize(image_size),
             T.RandomHorizontalFlip() if augment_horizontal_flip else nn.Identity(),
             T.CenterCrop(image_size),
-            T.ToTensor()
+            T.ToTensor(),
+            T.Lambda(normalize_16bit_tensor)
         ])
 
     def __len__(self):
